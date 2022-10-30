@@ -1,4 +1,4 @@
 <?php
 return [
-  'footernote' => "Nähere Informationen zu Seitenbetreiber, allgemeinen Geschäftsbedingungne und Datenschutz finden Sie hier."
+  'footernote' => "Nähere Informationen zu Seitenbetreiber, allgemeinen Geschäftsbedingungen und Datenschutz finden Sie hier."
 ];
