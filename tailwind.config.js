@@ -10,10 +10,18 @@ module.exports = {
     ],
 
     theme: {
+        container: {
+            center: true,
+            padding: '2rem'
+        },
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Titillium Web', ...defaultTheme.fontFamily.sans],
+                serif: ['Georgia', ...defaultTheme.fontFamily.serif]
             },
+            colors: {
+                logo: '#9d9d9c'
+            }
         },
     },
 

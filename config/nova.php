@@ -163,7 +163,7 @@ return [
     */
 
      'brand' => [
-         'logo' => resource_path('/images/residences_logo_grau.svg'),
+         'logo' => public_path('images/cc-icon.svg'),
 
          'colors' => [
              "400" => "157, 157, 156, 0.5",
