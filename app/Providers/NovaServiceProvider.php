@@ -7,6 +7,7 @@ use App\Nova\Company;
 use App\Nova\RealEstate;
 use Illuminate\Http\Request;
 use App\Nova\RealEstateArea;
+use App\Nova\Dashboards\Main;
 use App\Nova\RealEstateCategory;
 use Laravel\Nova\Menu\Menu;
 use Laravel\Nova\Menu\MenuItem;
@@ -86,6 +87,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [
+            new Main()
         ];
     }
 
