@@ -32,7 +32,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::mainMenu(function (Request $request) {
             return [
 
-                MenuItem::externalLink('Stripe Payments', env('APP_URL')),
+                MenuItem::externalLink('Startseite', env('APP_URL')),
 
 
                 MenuSection::make('Immobilien', [
