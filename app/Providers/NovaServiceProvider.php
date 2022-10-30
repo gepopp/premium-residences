@@ -39,7 +39,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource(RealEstate::class ),
                     MenuItem::resource(RealEstateCategory::class),
                     MenuItem::resource(RealEstateArea::class),
-                ])->icon('home-modern')->collapsable(),
+                ])->icon('home')
+                  ->collapsable(),
 
                 MenuSection::make('Nutzer', [
                     MenuItem::resource(User::class),
