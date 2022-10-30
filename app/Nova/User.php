@@ -90,7 +90,7 @@ class User extends Resource {
                 ->rules( 'required', 'max:255' ),
 
             Text::make( 'Titel', 'academic_degree' )
-                ->rules( 'required', 'max:255' ),
+                ->rules( 'nullable', 'max:255' ),
 
             Text::make( 'Name' )
                 ->sortable()
