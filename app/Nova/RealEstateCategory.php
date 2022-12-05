@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\MorphOne;
+use Spatie\NovaTranslatable\Translatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
@@ -66,13 +67,15 @@ class RealEstateCategory extends Resource {
         return [
             MorphOne::make( 'Bild', 'image', 'App\Nova\Image' ),
 
-            Text::make( 'Name' )
-                ->required()
-                ->rules( [ 'string', 'required', 'max:255' ] ),
+            Translatable::make([
+                Text::make( 'Name' )
+                    ->required()
+                    ->rules( [ 'string', 'required', 'max:255' ] ),
 
-            Trix::make( 'Beschreibung', 'description' )
-                ->nullable()
-                ->rules( [ 'string', 'nullable' ] ),
+                Trix::make( 'Beschreibung', 'description' )
+                    ->nullable()
+                    ->rules( [ 'string', 'nullable' ] )
+            ]),
         ];
     }
 

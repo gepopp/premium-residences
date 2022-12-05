@@ -2,25 +2,28 @@
 
 namespace App\Nova;
 
+
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\MorphOne;
+use Spatie\NovaTranslatable\Translatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
 
-class RealEstateArea extends Resource {
+
+class RealEstateArea extends Resource
+{
 
 
 
 
-
-    public static function label() {
+    public static function label()
+    {
 
         return 'Immobilien Gebiete';
 
     }
-
 
 
 
@@ -35,14 +38,12 @@ class RealEstateArea extends Resource {
 
 
 
-
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
-
 
 
 
@@ -59,7 +60,6 @@ class RealEstateArea extends Resource {
 
 
 
-
     /**
      * Get the fields displayed by the resource.
      *
@@ -67,21 +67,24 @@ class RealEstateArea extends Resource {
      *
      * @return array
      */
-    public function fields( NovaRequest $request ) {
+    public function fields(NovaRequest $request)
+    {
 
         return [
-            MorphOne::make( 'Bild', 'image', 'App\Nova\Image' ),
+            MorphOne::make('Bild', 'image', 'App\Nova\Image'),
 
-            Text::make( 'Name' )
-                ->required()
-                ->rules( [ 'string', 'required', 'max:255' ] ),
+            Translatable::make([
 
-            Trix::make( 'Beschreibung', 'description' )
-                ->nullable()
-                ->rules( [ 'string', 'nullable' ] ),
+                Text::make('Name')
+                    ->required()
+                    ->rules([ 'string', 'required', 'max:255' ]),
+
+                Trix::make('Beschreibung', 'description')
+                    ->nullable()
+                    ->rules([ 'string', 'nullable' ]),
+            ]),
         ];
     }
-
 
 
 
@@ -93,11 +96,11 @@ class RealEstateArea extends Resource {
      *
      * @return array
      */
-    public function cards( NovaRequest $request ) {
+    public function cards(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -109,11 +112,11 @@ class RealEstateArea extends Resource {
      *
      * @return array
      */
-    public function filters( NovaRequest $request ) {
+    public function filters(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -125,11 +128,11 @@ class RealEstateArea extends Resource {
      *
      * @return array
      */
-    public function lenses( NovaRequest $request ) {
+    public function lenses(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -141,7 +144,8 @@ class RealEstateArea extends Resource {
      *
      * @return array
      */
-    public function actions( NovaRequest $request ) {
+    public function actions(NovaRequest $request)
+    {
 
         return [];
     }

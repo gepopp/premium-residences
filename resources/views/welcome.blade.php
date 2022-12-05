@@ -32,14 +32,14 @@
     </nav>
     <div>
         @if(app()->getLocale() == 'de')
-            <a href="{{ language()->back('en') }}">english version</a>
+            <a href="{{ language()->back('en') }}">english</a>
         @else
-            <a href="{{ language()->back('de') }}">deutsche version</a>
+            <a href="{{ language()->back('de') }}">deutsch</a>
         @endif
     </div>
 </header>
 <main class="min-h-screen">
-
+    <a href="{{ route('real-estate.show', \App\Models\RealEstate::first()) }}">{{ \App\Models\RealEstate::first()->title }}</a>
 </main>
 <footer class="py-3 flex justify-between items-center text-logo font-bold border-t-2 border-logo">
     <div class="flex">

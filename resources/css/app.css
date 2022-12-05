@@ -1,4 +1,19 @@
 @import url("https://use.typekit.net/mue5wpm.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.bg-custom-gradient {
+    background: rgb(134,147,171);
+    background: linear-gradient(135deg, rgba(134,147,171,1) 0%, rgba(8,39,77,1) 18%, rgba(8,39,77,1) 74%, rgba(134,147,171,1) 100%);
+}
+
+
+h1{
+    @apply font-serif text-2xl md:text-5xl xl:text-7xl;
+}
+.subtitle{
+    @apply font-semibold md:text-2xl xl:text-3xl;
+}

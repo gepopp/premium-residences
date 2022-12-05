@@ -2,18 +2,22 @@
 
 namespace App\Nova;
 
+
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Textarea;
 use Illuminate\Support\Facades\Storage;
+use Spatie\NovaTranslatable\Translatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
 
-class Image extends Resource {
 
+class Image extends Resource
+{
 
 
 
@@ -28,14 +32,12 @@ class Image extends Resource {
 
 
 
-
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'id';
-
 
 
 
@@ -52,9 +54,7 @@ class Image extends Resource {
 
 
 
-
     protected $morphField = null;
-
 
 
 
@@ -66,7 +66,8 @@ class Image extends Resource {
      *
      * @return array
      */
-    public function fields( NovaRequest $request ) {
+    public function fields(NovaRequest $request)
+    {
 
         return [
 
@@ -75,34 +76,47 @@ class Image extends Resource {
             MorphTo::make('imageable')->types([
                 RealEstate::class,
                 Company::class,
-                TextBlock::class
+                TextBlock::class,
             ])->nullable(),
 
-            \Laravel\Nova\Fields\Image::make( 'Bild', 'path' )
-                                      ->store( function ( Request $request, $model, $attribute, $requestAttribute ) {
+
+            Select::make('Gehört zu:', 'field')
+                  ->options([
+                      'titleimage'    => 'Titelbild',
+                      'featuresimage' => 'Ausstattungsbild',
+                      'sliderimages'  => 'Sliderbild',
+                  ])
+                  ->displayUsingLabels()
+                  ->required(),
+
+
+            \Laravel\Nova\Fields\Image::make('Bild', 'path')
+                                      ->store(function (Request $request, $model, $attribute, $requestAttribute) {
 
                                           $field = explode('.', $requestAttribute);
 
                                           $uploaded_image = $request->path ?? $request->{$field[0]}['path'];
 
-                                          $image  = \Intervention\Image\Facades\Image::make( $uploaded_image->get() );
+                                          $image = \Intervention\Image\Facades\Image::make($uploaded_image->get());
                                           $folder = time();
 
                                           return [
-                                              'path'   => $uploaded_image->storeAs( 'images/' . $folder, $uploaded_image->getClientOriginalName(), 's3' ),
+                                              'path'   => $uploaded_image->storeAs('images/' . $folder, $uploaded_image->getClientOriginalName(), 's3'),
                                               'size'   => $uploaded_image->getSize(),
                                               'width'  => $image->width(),
                                               'height' => $image->height(),
-                                              'url'    => Storage::disk( 's3' )->url( 'images/' . $uploaded_image->getClientOriginalName() ),
+                                              'url'    => Storage::disk('s3')->url('images/' . $folder . '/' . $uploaded_image->getClientOriginalName()),
                                               'folder' => $folder,
-                                              'field'  => $request->viaRelationship ? $request->viaRelationship : $field[0]
+                                              'field'  => $request->viaRelationship ? $request->viaRelationship : $field[0],
                                           ];
-                                      } )->required()->rules('image', 'max:5000'),
+                                      })
+                                      ->required()
+                                      ->rules('image', 'max:5000'),
 
-            Text::make( 'Bildtitel', 'alt' )->required()->rules( [ 'string', 'required', 'max:250' ] ),
-            Textarea::make( 'Bildbeschreibung', 'description' ),
-            Text::make('Feld', 'field')->readonly()
-
+            Translatable::make([
+                Text::make('Bildtitel', 'alt')->required()->rules([ 'string', 'required', 'max:250' ]),
+                Textarea::make('Bildbeschreibung', 'description'),
+            ]),
         ];
     }
 
@@ -116,11 +130,11 @@ class Image extends Resource {
      *
      * @return array
      */
-    public function cards( NovaRequest $request ) {
+    public function cards(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -132,11 +146,11 @@ class Image extends Resource {
      *
      * @return array
      */
-    public function filters( NovaRequest $request ) {
+    public function filters(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -148,11 +162,11 @@ class Image extends Resource {
      *
      * @return array
      */
-    public function lenses( NovaRequest $request ) {
+    public function lenses(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -164,7 +178,8 @@ class Image extends Resource {
      *
      * @return array
      */
-    public function actions( NovaRequest $request ) {
+    public function actions(NovaRequest $request)
+    {
 
         return [];
     }

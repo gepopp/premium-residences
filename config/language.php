@@ -62,7 +62,7 @@ return [
     | This option the language of jenssegers/date library.
     |
     */
-    'date'          => false,
+    'date'          => true,
 
     /*
     |--------------------------------------------------------------------------

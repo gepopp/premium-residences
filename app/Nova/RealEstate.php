@@ -2,8 +2,8 @@
 
 namespace App\Nova;
 
+
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Textarea;
@@ -11,14 +11,15 @@ use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\MorphMany;
-use Laravel\Nova\Fields\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
+use Spatie\NovaTranslatable\Translatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
 
-class RealEstate extends Resource {
 
+class RealEstate extends Resource
+{
 
 
 
@@ -33,13 +34,12 @@ class RealEstate extends Resource {
 
 
 
-
-    public static function label() {
+    public static function label()
+    {
 
         return 'Immobilien';
 
     }
-
 
 
 
@@ -50,7 +50,6 @@ class RealEstate extends Resource {
      * @var string
      */
     public static $title = 'title';
-
 
 
 
@@ -67,7 +66,6 @@ class RealEstate extends Resource {
 
 
 
-
     /**
      * Get the fields displayed by the resource.
      *
@@ -75,103 +73,101 @@ class RealEstate extends Resource {
      *
      * @return array
      */
-    public function fields( NovaRequest $request ) {
+    public function fields(NovaRequest $request)
+    {
 
         return [
 
 
-            \Laravel\Nova\Fields\Image::make( 'Titelbild' )
+            \Laravel\Nova\Fields\Image::make('Titelbild')
                                       ->hideWhenCreating()
                                       ->hideWhenUpdating()
-                                      ->thumbnail( function () {
+                                      ->thumbnail(function () {
+                                          return Storage::disk('s3')->url($this->titleimage->path);
+                                      }),
 
-                                          return Storage::disk( 's3' )->url( $this->titleimage->path );
-                                      } ),
+            Translatable::make([
 
-
-            Text::make( 'Bezeichnung', 'title' )
-                ->required()
-                ->rules( [ 'string', 'required', 'max:255' ] ),
-
-            Textarea::make( 'Kurzbeschreibung', 'intro' )
+                Text::make('Bezeichnung', 'title')
                     ->required()
-                    ->rules( [ 'string', 'required', 'min:160', 'max:600' ] )
-                    ->alwaysShow(),
+                    ->rules([ 'string', 'required', 'max:255' ]),
 
-            Number::make( 'Preis', 'price' )->required()->rules( [ 'integer', 'numeric', 'required', 'min:1' ] ),
+                Textarea::make('Kurzbeschreibung', 'intro')
+                        ->required()
+                        ->rules([ 'string', 'required', 'min:100', 'max:160' ])
+                        ->alwaysShow(),
+            ]),
 
-            Boolean::make( 'Preis zeigen', 'show_price' )->default( true ),
+            Number::make('Preis', 'price')->required()->rules([ 'integer', 'numeric', 'required', 'min:1' ]),
 
-            BelongsTo::make( 'Betreut durch', 'user', 'App\Nova\User' )
+            Boolean::make('Preis zeigen', 'show_price')->default(true),
+
+            BelongsTo::make('Betreut durch', 'user', 'App\Nova\User')
                      ->required(),
 
-            BelongsTo::make( 'Unternehmen', 'company', 'App\Nova\Company' )
+            BelongsTo::make('Unternehmen', 'company', 'App\Nova\Company')
                      ->required(),
 
 
-            BelongsTo::make( 'Kategorie', 'category', 'App\Nova\RealEstateCategory' )
+            BelongsTo::make('Kategorie', 'category', 'App\Nova\RealEstateCategory')
                      ->required(),
 
-            BelongsTo::make( 'Gebiet', 'area', 'App\Nova\RealEstateArea' )
+            BelongsTo::make('Gebiet', 'area', 'App\Nova\RealEstateArea')
                      ->required(),
 
-            KeyValue::make( 'Meta' )->disableEditingKeys(),
+            KeyValue::make('Meta')->disableEditingKeys(),
 
-            KeyValue::make( 'Ausstattungsmerkmale', 'location_meta' )->disableEditingKeys(),
-
-
-            \Laravel\Nova\Fields\Image::make( 'Ausstattungsbild' )
-                                      ->hideWhenCreating()
-                                      ->hideWhenUpdating()
-                                      ->thumbnail( function () {
-
-                                          return $this->featuresimage ? Storage::disk( 's3' )->url( $this->featuresimage->path ) : null;
-                                      } ),
+            KeyValue::make('Ausstattungsmerkmale', 'location_meta')->disableEditingKeys(),
 
 
-            Trix::make( 'Ausstattungsbeschreibung', function () {
-
-                return '<div><h3>' . $this->metadescription->title . '</h3><div>' . $this->metadescription->contents . '</div></div>';
-            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
-
-
-            Trix::make( 'Lagebeschreibung', function () {
-
-                return '<div><h3>' . $this->locationdescription?->title . '</h3><div>' . $this->locationdescription?->contents . '</div></div>';
-            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
-
-            Trix::make( 'Objektbeschreibung', function () {
-
-                return '<div><h3>' . $this->objectdescription?->title . '</h3><div>' . $this->objectdescription?->contents . '</div></div>';
-            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
+            //            \Laravel\Nova\Fields\Image::make( 'Ausstattungsbild' )
+            //                                      ->hideWhenCreating()
+            //                                      ->hideWhenUpdating()
+            //                                      ->thumbnail( function () {
+            //
+            //                                          return $this->featuresimage ? Storage::disk( 's3' )->url( $this->featuresimage->path ) : null;
+            //                                      } ),
 
 
-            MorphOne::make( 'Titelbild', 'titleimage', 'App\Nova\Image' )
-                    ->required()
-                    ->hideFromDetail(),
-
-            MorphOne::make( 'Ausstattungsbild', 'featuresimage', 'App\Nova\Image' )
-                    ->required()
-                    ->hideFromDetail(),
-
-            MorphOne::make( 'Ausstattungsbeschreibung', 'metadescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
-
-            MorphOne::make( 'Lagebeschreibung', 'locationdescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
-
-            MorphOne::make( 'Objektbeschreibung', 'objectdescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
-
-            MorphMany::make( 'Slider Bilder', 'sliderimages', 'App\Nova\Image' ),
-
-
-            BelongsToMany::make( 'Kontaktpersonen', 'contactpersons', 'App\Nova\User' )
-                         ->nullable(),
-
-            MorphOne::make( 'Geotag', 'geotag', 'App\Nova\Geotag' )
-                    ->required()
-                    ->hideFromDetail(),
+            //            Trix::make( 'Ausstattungsbeschreibung', function () {
+            //
+            //                return '<div><h3>' . $this->metadescription->title . '</h3><div>' . $this->metadescription->contents . '</div></div>';
+            //            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
+            //
+            //
+            //            Trix::make( 'Lagebeschreibung', function () {
+            //
+            //                return '<div><h3>' . $this->locationdescription?->title . '</h3><div>' . $this->locationdescription?->contents . '</div></div>';
+            //            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
+            //
+            //            Trix::make( 'Objektbeschreibung', function () {
+            //
+            //                return '<div><h3>' . $this->objectdescription?->title . '</h3><div>' . $this->objectdescription?->contents . '</div></div>';
+            //            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
+            //
+            //
+            //
+            //            MorphOne::make( 'Ausstattungsbild', 'featuresimage', 'App\Nova\Image' )
+            //                    ->required()
+            //                    ->hideFromDetail(),
+            //
+            //            MorphOne::make( 'Ausstattungsbeschreibung', 'metadescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
+            //
+            //            MorphOne::make( 'Lagebeschreibung', 'locationdescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
+            //
+            //            MorphOne::make( 'Objektbeschreibung', 'objectdescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
+            //
+                        MorphMany::make( 'Bilder', 'images', 'App\Nova\Image' ),
+            //
+            //
+            //            BelongsToMany::make( 'Kontaktpersonen', 'contactpersons', 'App\Nova\User' )
+            //                         ->nullable(),
+            //
+            //            MorphOne::make( 'Geotag', 'geotag', 'App\Nova\Geotag' )
+            //                    ->required()
+            //                    ->hideFromDetail(),
         ];
     }
-
 
 
 
@@ -183,11 +179,11 @@ class RealEstate extends Resource {
      *
      * @return array
      */
-    public function cards( NovaRequest $request ) {
+    public function cards(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -199,11 +195,11 @@ class RealEstate extends Resource {
      *
      * @return array
      */
-    public function filters( NovaRequest $request ) {
+    public function filters(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -215,11 +211,11 @@ class RealEstate extends Resource {
      *
      * @return array
      */
-    public function lenses( NovaRequest $request ) {
+    public function lenses(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -231,7 +227,8 @@ class RealEstate extends Resource {
      *
      * @return array
      */
-    public function actions( NovaRequest $request ) {
+    public function actions(NovaRequest $request)
+    {
 
         return [];
     }

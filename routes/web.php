@@ -30,8 +30,10 @@ Route::group(['middleware' => 'language'], function () {
         })->name('dashboard');
     });
 
-});
 
+    Route::get('immobilien/{realestate}', [\App\Http\Controllers\RealEstateController::class, 'show'])->name('real-estate.show');
+
+});
 
 
 

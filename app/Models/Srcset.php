@@ -30,8 +30,23 @@ class Srcset extends Model {
 
 
     public function image() {
-
         return $this->belongsTo( Image::class );
+    }
+
+
+    public function getSrcsetStringAttribute(){
+
+        $srcset = '';
+
+        foreach ($this->srcset as $image){
+            $srcset .= $image['url'];
+            $srcset .= ' ';
+            $srcset .= $image['width'];
+            $srcset .= 'w, ';
+        }
+
+        return rtrim($srcset, ', ');
+
     }
 
 }

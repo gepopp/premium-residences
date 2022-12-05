@@ -2,23 +2,31 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 
-class Image extends Model {
+
+class Image extends Model
+{
 
 
 
 
+    use HasFactory, HasTranslations;
 
-    use HasFactory;
+
+
+
+    public $translatable = [ 'alt', 'description' ];
+
 
 
 
     protected $guarded = [];
-
 
 
 
@@ -28,19 +36,19 @@ class Image extends Model {
 
 
 
+    public function imageable()
+    {
 
-    public function imageable() {
-
-        return $this->morphTo( 'imageable' );
+        return $this->morphTo('imageable');
     }
 
 
 
 
+    public function srcset()
+    {
 
-    public function srcset() {
-
-        return $this->hasOne( Srcset::class );
+        return $this->hasOne(Srcset::class);
     }
 
 }

@@ -12,7 +12,10 @@ module.exports = {
     theme: {
         container: {
             center: true,
-            padding: '2rem'
+            padding: {
+                DEFAULT: '0',
+                sm: '2rem',
+            }
         },
         extend: {
             fontFamily: {
@@ -25,5 +28,5 @@ module.exports = {
         },
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/line-clamp'), require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };

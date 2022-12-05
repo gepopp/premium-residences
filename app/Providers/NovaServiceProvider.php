@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Nova\User;
+use App\Nova\Image;
 use App\Nova\Company;
 use App\Nova\RealEstate;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource(RealEstate::class ),
                     MenuItem::resource(RealEstateCategory::class),
                     MenuItem::resource(RealEstateArea::class),
+                    MenuItem::resource( Image::class )
                 ])->icon('home')
                   ->collapsable(),
 

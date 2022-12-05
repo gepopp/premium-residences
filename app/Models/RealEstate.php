@@ -2,25 +2,33 @@
 
 namespace App\Models;
 
+
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 
-class RealEstate extends Model {
+
+class RealEstate extends Model
+{
 
 
 
 
+    use HasFactory, HasSlug, HasTranslations;
 
-    use HasFactory, HasSlug;
+
+
+
+    public $translatable = [ 'title', 'intro' ];
+
 
 
 
     protected $guarded = [];
-
 
 
 
@@ -30,111 +38,119 @@ class RealEstate extends Model {
 
 
 
+    public function metadescription()
+    {
 
-    public function metadescription() {
-
-        return $this->morphOne( TextBlock::class, 'textable' )->where( 'field', '=', 'metadescription' );
+        return $this->morphOne(TextBlock::class, 'textable')->where('field', '=', 'metadescription');
     }
 
 
 
 
+    public function locationdescription()
+    {
 
-    public function locationdescription() {
-
-        return $this->morphOne( TextBlock::class, 'textable' )->where( 'field', '=', 'locationdescription' );
+        return $this->morphOne(TextBlock::class, 'textable')->where('field', '=', 'locationdescription');
     }
 
 
 
 
+    public function objectdescription()
+    {
 
-    public function objectdescription() {
-
-        return $this->morphOne( TextBlock::class, 'textable' )->where( 'field', '=', 'objectdescription' );
+        return $this->morphOne(TextBlock::class, 'textable')->where('field', '=', 'objectdescription');
     }
 
 
 
 
+    public function images()
+    {
 
-    public function titleimage() {
-
-        return $this->morphOne( Image::class, 'imageable' )->where( 'field', '=', 'titleimage' );
+        return $this->morphMany(Image::class, 'imageable');
     }
 
 
 
 
+    public function titleimage()
+    {
 
-    public function featuresimage() {
-
-        return $this->morphOne( Image::class, 'imageable' )->where( 'field', '=', 'featuresimage' );
+        return $this->morphOne(Image::class, 'imageable')->where('field', '=', 'titleimage')->latestOfMany();
     }
 
 
 
 
+    public function featuresimage()
+    {
 
-    public function sliderimages() {
-
-        return $this->morphMany( Image::class, 'imageable' )->where( 'field', '=', 'sliderimages' );
+        return $this->morphOne(Image::class, 'imageable')->where('field', '=', 'featuresimage')->latestOfMany();
     }
 
 
 
 
+    public function sliderimages()
+    {
 
-    public function category() {
-
-        return $this->belongsTo( RealEstateCategory::class );
+        return $this->morphMany(Image::class, 'imageable')->where('field', '=', 'sliderimages');
     }
 
 
 
 
+    public function category()
+    {
 
-    public function area() {
-
-        return $this->belongsTo( RealEstateArea::class );
+        return $this->belongsTo(RealEstateCategory::class);
     }
 
 
 
 
+    public function area()
+    {
 
-    public function company() {
-
-        return $this->belongsTo( Company::class );
+        return $this->belongsTo(RealEstateArea::class);
     }
 
 
 
 
+    public function company()
+    {
 
-    public function user() {
-
-        return $this->belongsTo( User::class );
+        return $this->belongsTo(Company::class);
     }
 
 
 
 
+    public function user()
+    {
 
-    public function geotag() {
-
-        return $this->morphOne( GeoTag::class, 'geotagable' );
+        return $this->belongsTo(User::class);
     }
 
 
 
 
+    public function geotag()
+    {
 
-    public function contactpersons() {
-
-        return $this->belongsToMany( User::class, 'contactpersons', 'user_id', 'real_estate_id' );
+        return $this->morphOne(GeoTag::class, 'geotagable');
     }
 
+
+
+
+    public function contactpersons()
+    {
+
+        return $this->belongsToMany(User::class, 'contactpersons', 'user_id', 'real_estate_id');
+    }
 
 
 
@@ -142,14 +158,15 @@ class RealEstate extends Model {
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions(): SlugOptions {
+
+    public function getSlugOptions(): SlugOptions
+    {
 
         return SlugOptions::create()
-                          ->generateSlugsFrom( 'title' )
-                          ->saveSlugsTo( 'slug' )
-                          ->doNotGenerateSlugsOnUpdate();
+                          ->generateSlugsFrom('title')
+                          ->saveSlugsTo('slug')
+                          ->usingLanguage('de');
     }
-
 
 
 
@@ -159,7 +176,8 @@ class RealEstate extends Model {
      *
      * @return string
      */
-    public function getRouteKeyName() {
+    public function getRouteKeyName()
+    {
 
         return 'slug';
     }
