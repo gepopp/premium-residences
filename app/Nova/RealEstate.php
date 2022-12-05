@@ -83,7 +83,11 @@ class RealEstate extends Resource
                                       ->hideWhenCreating()
                                       ->hideWhenUpdating()
                                       ->thumbnail(function () {
-                                          return Storage::disk('s3')->url($this->titleimage?->path ?? '');
+                                          if($this->titleimage){
+                                              return Storage::disk('s3')->url($this->titleimage->path);
+                                          }else{
+                                              return false;
+                                          }
                                       }),
 
             Translatable::make([
