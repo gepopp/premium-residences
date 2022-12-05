@@ -77,7 +77,7 @@ class RealEstate extends Model
     public function titleimage()
     {
 
-        return $this->morphOne(Image::class, 'imageable')->where('field', '=', 'titleimage')->latestOfMany();
+        return $this->morphOne(Image::class, 'imageable')->where('imageable_field', '=', 'titleimage')->latestOfMany();
     }
 
 
@@ -86,7 +86,7 @@ class RealEstate extends Model
     public function featuresimage()
     {
 
-        return $this->morphOne(Image::class, 'imageable')->where('field', '=', 'featuresimage')->latestOfMany();
+        return $this->morphOne(Image::class, 'imageable')->where('imageable_field', '=', 'featuresimage')->latestOfMany();
     }
 
 
@@ -95,7 +95,7 @@ class RealEstate extends Model
     public function sliderimages()
     {
 
-        return $this->morphMany(Image::class, 'imageable')->where('field', '=', 'sliderimages');
+        return $this->morphMany(Image::class, 'imageable')->where('imageable_field', '=', 'sliderimages');
     }
 
 

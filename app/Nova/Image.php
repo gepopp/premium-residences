@@ -80,14 +80,15 @@ class Image extends Resource
             ])->nullable(),
 
 
-            Select::make('Gehört zu:', 'field')
+            Select::make('Gehört zu:', 'imageable_field')
                   ->options([
                       'titleimage'    => 'Titelbild',
                       'featuresimage' => 'Ausstattungsbild',
                       'sliderimages'  => 'Sliderbild',
                   ])
                   ->displayUsingLabels()
-                  ->required(),
+                  ->required()
+                  ->rules('required'),
 
 
             \Laravel\Nova\Fields\Image::make('Bild', 'path')
@@ -107,7 +108,6 @@ class Image extends Resource
                                               'height' => $image->height(),
                                               'url'    => Storage::disk('s3')->url('images/' . $folder . '/' . $uploaded_image->getClientOriginalName()),
                                               'folder' => $folder,
-                                              'field'  => $request->viaRelationship ? $request->viaRelationship : $field[0],
                                           ];
                                       })
                                       ->required()
