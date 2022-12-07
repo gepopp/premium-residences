@@ -53,7 +53,7 @@
                                 <div class="swiper-wrapper">
                                     <template x-for="image in images" :key="image.id">
                                         <div class="relative bg-logo bg-opacity-25 swiper-slide w-[80%] flex items-center justify-center">
-                                            <a @click="$dispatch('img-modal', {  imgModalSrc: image.url, imgModalDesc: image.alt[window.lang] })" class="cursor-pointer">
+                                            <a @click="$dispatch('img-modal', {  imgModalSrc: image.url, imgModalDesc: image.alt[window.lang] })" class="h-full w-full cursor-pointer">
                                                 <img :src="image.url"
                                                      :srcset="image.srcset?.srcsetString"
                                                      class="object-cover"
