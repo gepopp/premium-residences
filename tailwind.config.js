@@ -23,7 +23,8 @@ module.exports = {
                 serif: ['Georgia', ...defaultTheme.fontFamily.serif]
             },
             colors: {
-                logo: '#9d9d9c'
+                logo: '#9d9d9c',
+                darkblue: '#08274D'
             }
         },
     },

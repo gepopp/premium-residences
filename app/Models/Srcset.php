@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 
-class Srcset extends Model {
 
+class Srcset extends Model
+{
 
 
 
@@ -17,8 +19,8 @@ class Srcset extends Model {
 
 
 
-    protected $guarded = [];
 
+    protected $guarded = [];
 
 
 
@@ -28,17 +30,26 @@ class Srcset extends Model {
 
 
 
+    protected $appends = [ 'srcsetString' ];
 
-    public function image() {
-        return $this->belongsTo( Image::class );
+
+
+
+    public function image()
+    {
+
+        return $this->belongsTo(Image::class);
     }
 
 
-    public function getSrcsetStringAttribute(){
+
+
+    public function getSrcsetStringAttribute()
+    {
 
         $srcset = '';
 
-        foreach ($this->srcset as $image){
+        foreach ($this->srcset as $image) {
             $srcset .= $image['url'];
             $srcset .= ' ';
             $srcset .= $image['width'];

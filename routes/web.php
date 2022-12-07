@@ -32,6 +32,7 @@ Route::group(['middleware' => 'language'], function () {
 
 
     Route::get('immobilien/{realestate}', [\App\Http\Controllers\RealEstateController::class, 'show'])->name('real-estate.show');
+    Route::get('realestate-sliderimages/{realEstate}', [\App\Http\Controllers\RealEstateController::class, 'sliderImages'])->name('realestate-sliderimages');
 
 });
 

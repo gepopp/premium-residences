@@ -14,4 +14,8 @@ class RealEstateController extends Controller
     }
 
 
+    public function sliderImages(RealEstate $realEstate){
+        return $realEstate->sliderimages;
+    }
+
 }

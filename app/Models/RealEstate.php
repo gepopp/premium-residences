@@ -77,7 +77,7 @@ class RealEstate extends Model
     public function titleimage()
     {
 
-        return $this->morphOne(Image::class, 'imageable')->where('imageable_field', '=', 'titleimage')->latestOfMany();
+        return $this->morphOne(Image::class, 'imageable')->where('imageable_field', '=', 'titleimage');
     }
 
 
