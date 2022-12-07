@@ -57,7 +57,7 @@
                                                 <img :src="image.url"
                                                      :srcset="image.srcset?.srcsetString"
                                                      class="object-cover"
-                                                     :class="image.width > image.height ? 'min-w-full' : 'min-h-full'"
+                                                     :class="image.width > image.height ? 'min-h-full' : 'min-w-full'"
                                                      :alt="image.alt[window.lang]"
                                                 />
                                             </a>
