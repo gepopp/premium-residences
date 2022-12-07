@@ -1,7 +1,7 @@
 <x-guest-layout>
     @include('RealEstate.modules.single-header')
     <main>
-        @if($realestate->sliderimages()->count() > 3)
+        @if($realestate->sliderimages()->count() >= 3)
             <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
             <div class="py-20 px-10 bg-custom-gradient-transparent">
                 <div
