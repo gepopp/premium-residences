@@ -26,7 +26,7 @@
              x-transition:leave-end="opacity-0 transform scale-90"
              x-on:click.away="imgModalSrc = ''"
              class="p-2 fixed w-full h-100 inset-0 z-[9999] overflow-hidden flex justify-center items-center bg-custom-gradient">
-            <div @click.away="imgModal = ''" class="flex flex-col max-w-3xl max-h-full overflow-auto">
+            <div @click.away="imgModal = ''" class="flex flex-col max-w-full max-h-full overflow-auto">
                 <div class="z-50">
                     <button @click="imgModal = ''" class="float-right pt-2 pr-2 outline-none focus:outline-none">
                         <svg class="fill-current text-white " xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
