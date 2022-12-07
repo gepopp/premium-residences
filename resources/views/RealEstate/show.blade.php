@@ -56,8 +56,8 @@
                                             <a @click="$dispatch('img-modal', {  imgModalSrc: image.url, imgModalDesc: image.alt[window.lang] })" class="cursor-pointer">
                                                 <img :src="image.url"
                                                      :srcset="image.srcset?.srcsetString"
-                                                     class="object-fit"
-                                                     :class="image.width > image.height ? 'min-h-full' : 'min-w-full'"
+                                                     class="object-cover"
+                                                     :class="image.width > image.height ? 'min-w-full' : 'min-h-full'"
                                                      :alt="image.alt[window.lang]"
                                                 />
                                             </a>
