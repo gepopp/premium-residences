@@ -24,7 +24,7 @@
         <div @class([
             "w-full relative",
             "md:w-2/3 lg:aspect-square" => $realestate->features->count(),
-            "lg:aspect-video lg:p-20" => !$realestate->features->count()
+            "lg:aspect-video" => !$realestate->features->count()
             ]) >
             @if($realestate->featuresimage)
                 <div class="absolute top-0 left-0 w-full h-full">
