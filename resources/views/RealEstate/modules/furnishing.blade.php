@@ -1,4 +1,4 @@
-@if(is_null($realestate->metadescription) && is_null($realestate->featuresimage) && $realestate->features)
+@if(is_null($realestate->metadescription) && is_null($realestate->featuresimage) && $realestate->features->count())
     <div class="p-20 bg-custom-gradient">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
             @foreach($realestate->features as $feature)
@@ -19,7 +19,7 @@
 
 @endif
 
-@if($realestate->metadescription || ( $realestate->featuresimage && $realestate->features ))
+@if($realestate->metadescription || ( $realestate->featuresimage && $realestate->features->count() ))
     <div class="bg-darkblue flex flex-col md:flex-row">
         <div @class([
             "w-full lg:aspect-square relative",
