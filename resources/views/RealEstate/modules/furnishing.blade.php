@@ -23,7 +23,7 @@
     <div class="bg-darkblue flex flex-col md:flex-row">
         <div @class([
             "w-full lg:aspect-square relative",
-            "md:w-2/3" => $realestate->features
+            "md:w-2/3" => $realestate->features->count()
             ]) >
             @if($realestate->featuresimage)
                 <div class="absolute top-0 left-0 w-full h-full">
@@ -57,7 +57,7 @@
                 </div>
             @endif
         </div>
-        @if($realestate->features)
+        @if($realestate->features->count())
             <div class="w-full md:w-1/3 bg-custom-gradient-75 min-h-full">
                 <ul class="flex flex-col justify-between h-full px-10 py-20 text-white text-lg">
                     @foreach($realestate->features as $feature)
