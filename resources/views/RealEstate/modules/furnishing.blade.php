@@ -19,7 +19,7 @@
 
 @endif
 
-@if($realestate->metadescription)
+@if($realestate->metadescription || $realestate->featuresimage)
     <div class="bg-darkblue flex flex-col md:flex-row">
         <div @class([
             "w-full lg:aspect-square relative",
