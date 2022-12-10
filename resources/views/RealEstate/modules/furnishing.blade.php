@@ -22,8 +22,9 @@
 @if($realestate->metadescription || ( $realestate->featuresimage && $realestate->features->count() ))
     <div class="bg-darkblue flex flex-col md:flex-row">
         <div @class([
-            "w-full lg:aspect-square relative",
-            "md:w-2/3" => $realestate->features->count()
+            "w-full relative",
+            "md:w-2/3 lg:aspect-square" => $realestate->features->count(),
+            "lg:aspect-video lg:p-20" => !$realestate->features->count()
             ]) >
             @if($realestate->featuresimage)
                 <div class="absolute top-0 left-0 w-full h-full">
