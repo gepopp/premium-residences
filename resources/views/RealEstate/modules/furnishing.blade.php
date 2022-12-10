@@ -26,7 +26,7 @@
             "md:w-2/3 lg:aspect-square" => $realestate->features->count(),
             ]) >
             @if($realestate->featuresimage)
-                <div class="absolute top-0 left-0 w-full h-full">
+                <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
                     <img src="{{ $realestate->featuresimage->url }}" class="min-h-full min-w-full object-cover">
                 </div>
             @endif
