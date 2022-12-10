@@ -27,7 +27,7 @@
             ]) >
             @if($realestate->featuresimage)
                 <div class="absolute top-0 left-0 w-full h-full">
-                    <img src="{{ $realestate->featuresimage->url }}" class="min-h-full object-cover">
+                    <img src="{{ $realestate->featuresimage->url }}" class="min-h-full min-w-full object-cover">
                 </div>
             @endif
             @if($realestate->metadescription)
