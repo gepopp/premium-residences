@@ -6,9 +6,8 @@ namespace App\Nova;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\MorphOne;
-use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Support\Facades\Storage;
@@ -83,9 +82,10 @@ class RealEstate extends Resource
                                       ->hideWhenCreating()
                                       ->hideWhenUpdating()
                                       ->thumbnail(function () {
-                                          if($this->titleimage){
+
+                                          if ($this->titleimage) {
                                               return Storage::disk('s3')->url($this->titleimage->path);
-                                          }else{
+                                          } else {
                                               return false;
                                           }
                                       }),
@@ -112,56 +112,18 @@ class RealEstate extends Resource
             BelongsTo::make('Unternehmen', 'company', 'App\Nova\Company')
                      ->required(),
 
-
             BelongsTo::make('Kategorie', 'category', 'App\Nova\RealEstateCategory')
                      ->required(),
 
             BelongsTo::make('Gebiet', 'area', 'App\Nova\RealEstateArea')
                      ->required(),
 
-            KeyValue::make('Meta')->disableEditingKeys(),
+            MorphMany::make('Bilder', 'images', 'App\Nova\Image'),
 
-            KeyValue::make('Ausstattungsmerkmale', 'location_meta')->disableEditingKeys(),
+            MorphMany::make('Texte', 'texts', 'App\Nova\InlineTextBlock'),
 
+            HasMany::make('Ausstattungsmerkmale', 'features', 'App\Nova\Feature'),
 
-            //            \Laravel\Nova\Fields\Image::make( 'Ausstattungsbild' )
-            //                                      ->hideWhenCreating()
-            //                                      ->hideWhenUpdating()
-            //                                      ->thumbnail( function () {
-            //
-            //                                          return $this->featuresimage ? Storage::disk( 's3' )->url( $this->featuresimage->path ) : null;
-            //                                      } ),
-
-
-            //            Trix::make( 'Ausstattungsbeschreibung', function () {
-            //
-            //                return '<div><h3>' . $this->metadescription->title . '</h3><div>' . $this->metadescription->contents . '</div></div>';
-            //            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
-            //
-            //
-            //            Trix::make( 'Lagebeschreibung', function () {
-            //
-            //                return '<div><h3>' . $this->locationdescription?->title . '</h3><div>' . $this->locationdescription?->contents . '</div></div>';
-            //            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
-            //
-            //            Trix::make( 'Objektbeschreibung', function () {
-            //
-            //                return '<div><h3>' . $this->objectdescription?->title . '</h3><div>' . $this->objectdescription?->contents . '</div></div>';
-            //            } )->alwaysShow()->showOnDetail()->hideWhenUpdating()->hideWhenCreating()->hideFromIndex(),
-            //
-            //
-            //
-            //            MorphOne::make( 'Ausstattungsbild', 'featuresimage', 'App\Nova\Image' )
-            //                    ->required()
-            //                    ->hideFromDetail(),
-            //
-            //            MorphOne::make( 'Ausstattungsbeschreibung', 'metadescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
-            //
-            //            MorphOne::make( 'Lagebeschreibung', 'locationdescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
-            //
-            //            MorphOne::make( 'Objektbeschreibung', 'objectdescription', 'App\Nova\InlineTextBlock' )->required()->hideFromDetail(),
-            //
-                        MorphMany::make( 'Bilder', 'images', 'App\Nova\Image' ),
             //
             //
             //            BelongsToMany::make( 'Kontaktpersonen', 'contactpersons', 'App\Nova\User' )

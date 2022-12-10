@@ -38,6 +38,15 @@ class RealEstate extends Model
 
 
 
+    public function texts()
+    {
+
+        return $this->morphMany(TextBlock::class, 'textable');
+    }
+
+
+
+
     public function metadescription()
     {
 
@@ -150,6 +159,15 @@ class RealEstate extends Model
     {
 
         return $this->belongsToMany(User::class, 'contactpersons', 'user_id', 'real_estate_id');
+    }
+
+
+
+
+    public function features()
+    {
+
+        return $this->hasMany(Feature::class);
     }
 
 
