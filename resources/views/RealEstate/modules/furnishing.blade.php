@@ -34,7 +34,11 @@
             @if($realestate->metadescription)
                 <div class="w-full h-full flex justify-center items-center">
                     <div class="bg-custom-gradient-90 z-50 p-5 md:p-0 xl:p-20 ">
-                        <div class="lg:aspect-square relative flex items-center">
+                        <div @class([
+                               "relative flex items-center",
+                               "lg:aspect-square" => $realestate->features->count(),
+                               "lg:aspect-video" => !$realestate->features->count()
+                               ]) >
                             <div class="absolute top-0 right-0 m-10">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                      viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve"
