@@ -2,7 +2,7 @@
     <div class="p-20 bg-custom-gradient">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
             @foreach($realestate->features as $feature)
-                <div class="flex items-center space-x-3 mb-10 md:mb-0">
+                <div class="flex items-center space-x-3 mb-10 md:mb-0 text-white text-xl">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
