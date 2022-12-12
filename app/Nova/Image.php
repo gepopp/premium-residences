@@ -80,12 +80,20 @@ class Image extends Resource
             ])->nullable(),
 
 
-            Select::make('Gehört zu:', 'imageable_field')
+            Select::make('Verwenden als:', 'imageable_field')
                   ->options([
                       'titleimage'    => 'Titelbild',
                       'featuresimage' => 'Ausstattungsbild',
                       'sliderimages'  => 'Sliderbild',
+                      'logo'          => 'Logo',
                   ])
+                  ->default(function ($request) {
+                      if($request->viaResource == 'companies'){
+                          return 'logo';
+                      }else{
+                          return null;
+                      }
+                  })
                   ->displayUsingLabels()
                   ->required()
                   ->rules('required'),

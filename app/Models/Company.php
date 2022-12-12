@@ -23,9 +23,9 @@ class Company extends Model {
 
 
 
-//    public function logo() {
-//
-//        return $this->morphOne( Image::class, 'imageable' )->where('field', 'logo')->latestOfMany();
-//    }
+    public function logo() {
+
+        return $this->morphOne( Image::class, 'imageable' )->where('imageable_field', 'logo')->latestOfMany();
+    }
 
 }
