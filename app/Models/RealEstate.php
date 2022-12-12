@@ -50,7 +50,7 @@ class RealEstate extends Model
     public function metadescription()
     {
 
-        return $this->morphOne(TextBlock::class, 'textable')->where('imageable_field', '=', 'metadescription');
+        return $this->morphOne(TextBlock::class, 'textable')->where('field', '=', 'metadescription');
     }
 
 
@@ -59,7 +59,7 @@ class RealEstate extends Model
     public function locationdescription()
     {
 
-        return $this->morphOne(TextBlock::class, 'textable')->where('imageable_field', '=', 'locationdescription');
+        return $this->morphOne(TextBlock::class, 'textable')->where('field', '=', 'locationdescription');
     }
 
 
@@ -68,7 +68,7 @@ class RealEstate extends Model
     public function objectdescription()
     {
 
-        return $this->morphOne(TextBlock::class, 'textable')->where('imageable_field', '=', 'objectdescription');
+        return $this->morphOne(TextBlock::class, 'textable')->where('field', '=', 'objectdescription');
     }
 
 
