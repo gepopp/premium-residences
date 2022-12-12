@@ -2,9 +2,11 @@
 
 namespace App\Nova;
 
+use Psy\Util\Str;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -70,7 +72,11 @@ class Company extends Resource {
             MorphOne::make('Logo', 'logo', 'App\Nova\Image')
                     ->required(),
             Text::make( 'Name' )->required()->rules( 'string', 'required', 'max:255' ),
-            Trix::make( 'Adresse', 'address' )->required()->rules( [ 'string', 'required' ] ),
+            Text::make('Adresse', 'address_line_1')->rules(['required', 'string', 'max:250'])->required(),
+            Text::make('Adresszusatz', 'address_line_2')->rules(['nullable', 'string', 'max:250']),
+            Text::make('Postleitzahl', 'zip')->rules(['required', 'string', 'max:250'])->required(),
+            Text::make('Stadt', 'city')->rules(['required', 'string', 'max:250'])->required(),
+            Country::make('Land', 'country')->required(),
             Text::make( 'Email' )->required()->rules( [ 'email', 'required' ] ),
             Text::make( 'Telefonnummer', 'phone' )->required()->rules( [ 'string', 'required', 'max:50' ] ),
         ];
