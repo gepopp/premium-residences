@@ -50,8 +50,32 @@
                                      viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve"
                                      fill="currentColor" class="text-white w-10">
                                 <polygon class="st0" points="20,500 500,500 500,480 20,480 20,0 0,0 0,480 0,500 "/>
-                        </svg>
+                                </svg>
                             </div>
+                            @if($realestate->url)
+                                <a href="{{ $realestate->url }}" target="_blank">
+                                    <div class="absolute right-0 bottom-0 m-10 flex flex-col items-center justify-center -mr-1 group" x-data="{ show: false }"
+                                         x-on:mouseenter="show = true"
+                                         x-on:mouseleave="show = false">
+                                        <div class="-rotate-90 mb-16 text-white text-lg tracking-[.5em]">
+                                            WEBSITE
+                                        </div>
+                                        <div class="w-8 h-8 bg-white rounded-full flex justify-center items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 viewBox="0 0 24 24"
+                                                 fill="none"
+                                                 stroke="currentColor"
+                                                 stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round"
+                                                 class="w-8 h-8 feather feather-plus text-[#8693AB] group-hover:rotate-45 transition">
+                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endif
                             <div class="p-20">
                                 <h2 class="text-white font-serif text-xl lg:text-2xl xl:text-4xl font-bold text-center">{{ $realestate->metadescription->title }}</h2>
                                 <div class="text-white text-center mt-10">{!! $realestate->metadescription->contents !!}</div>

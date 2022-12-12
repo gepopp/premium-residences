@@ -2,16 +2,26 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID;
+
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\BelongsTo;
 use Spatie\NovaTranslatable\Translatable;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\NovaInlineTextField\InlineText;
+
+
+
 
 class Feature extends Resource
 {
+
+    const DEFAULT_INDEX_ORDER = 'order';
+
+
+
+
     /**
      * The model the resource corresponds to.
      *
@@ -19,12 +29,18 @@ class Feature extends Resource
      */
     public static $model = \App\Models\Feature::class;
 
+
+
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'id';
+
+
+
 
     /**
      * The columns that should be searched.
@@ -35,66 +51,103 @@ class Feature extends Resource
         'id',
     ];
 
+
+
+
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function fields(NovaRequest $request)
     {
+
         return [
-            Number::make('Reihung', 'order')->default(100)->required(),
+
+            InlineText::make('Reihung', 'order')->rules([ 'required', 'numeric' ]),
+
+            Number::make('Reihung', 'order')->default(100)->required()->hideFromIndex(),
             BelongsTo::make('Immobilie', 'realestate', 'App\Nova\RealEstate'),
 
             Translatable::make([
-               Text::make('Merkmal', 'feature')
-               ->required()
-            ])
+                Text::make('Merkmal', 'feature')
+                    ->required(),
+            ]),
         ];
     }
+
+
+
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function cards(NovaRequest $request)
     {
+
         return [];
     }
+
+
+
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function filters(NovaRequest $request)
     {
+
         return [];
     }
+
+
+
 
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function lenses(NovaRequest $request)
     {
+
         return [];
     }
+
+
+
 
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return array
      */
     public function actions(NovaRequest $request)
     {
+
         return [];
+    }
+
+
+
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+
+        $query->when(empty($request->get('orderBy')), function (Builder $q) {
+
+            $q->getQuery()->orders = [];
+
+            return $q->orderBy(static::DEFAULT_INDEX_ORDER);
+        });
     }
 }

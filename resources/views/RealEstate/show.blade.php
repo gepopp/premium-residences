@@ -3,5 +3,7 @@
     <main>
         @include('RealEstate.modules.slider')
         @include('RealEstate.modules.furnishing')
+        @include('RealEstate.modules.description')
+        @include('RealEstate.modules.video')
     </main>
 </x-guest-layout>

@@ -102,6 +102,12 @@ class RealEstate extends Resource
                         ->alwaysShow(),
             ]),
 
+            Text::make('Website', 'url')
+                ->rules([ 'nullable', 'string', 'url' ]),
+
+            Text::make('Video', 'video_url')
+                ->rules([ 'nullable', 'string', 'url' ]),
+
             Number::make('Preis', 'price')->required()->rules([ 'integer', 'numeric', 'required', 'min:1' ]),
 
             Boolean::make('Preis zeigen', 'show_price')->default(true),

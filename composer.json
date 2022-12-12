@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^2.5",
+        "outl1ne/nova-inline-text-field": "^2.0",
         "spatie/laravel-sluggable": "^3.4",
         "spatie/laravel-translatable": "^6.1",
         "spatie/nova-translatable": "^3.1",

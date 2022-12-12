@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24625c6ff3ec1569498973bd876bb3e7",
+    "content-hash": "d5dff10d687c5401bb68fd0a75088e52",
     "packages": [
         {
             "name": "akaunting/laravel-language",
@@ -4386,6 +4386,55 @@
                 }
             ],
             "time": "2022-03-31T06:15:15+00:00"
+        },
+        {
+            "name": "outl1ne/nova-inline-text-field",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/outl1ne/nova-inline-text-field.git",
+                "reference": "5864caeeecf68a40f2735c5af2bb876a41dc142a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/outl1ne/nova-inline-text-field/zipball/5864caeeecf68a40f2735c5af2bb876a41dc142a",
+                "reference": "5864caeeecf68a40f2735c5af2bb876a41dc142a",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^4.12.4",
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Outl1ne\\NovaInlineTextField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Outl1ne\\NovaInlineTextField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova inline text field.",
+            "keywords": [
+                "field",
+                "inline",
+                "laravel",
+                "nova",
+                "text"
+            ],
+            "support": {
+                "issues": "https://github.com/outl1ne/nova-inline-text-field/issues",
+                "source": "https://github.com/outl1ne/nova-inline-text-field/tree/2.0.3"
+            },
+            "time": "2022-11-23T12:09:47+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -10819,5 +10868,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

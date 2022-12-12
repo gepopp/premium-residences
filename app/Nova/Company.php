@@ -66,8 +66,8 @@ class Company extends Resource {
 
         return [
             ID::make()->sortable(),
-            MorphOne::make( 'Logo', 'logo', 'App\Nova\Image' )
-                    ->required(),
+//            MorphOne::make( 'Logo', 'logo', 'App\Nova\Image' )
+//                    ->required(),
             Text::make( 'Name' )->required()->rules( 'string', 'required', 'max:255' ),
             Trix::make( 'Adresse', 'address' )->required()->rules( [ 'string', 'required' ] ),
             Text::make( 'Email' )->required()->rules( [ 'email', 'required' ] ),

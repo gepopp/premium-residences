@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
@@ -24,6 +25,18 @@ class Feature extends Model
 
 
     protected $guarded = [];
+
+
+
+    protected static function booted()
+    {
+
+        static::addGlobalScope('order', function (Builder $query){
+           $query->orderBy('order', 'ASC');
+        });
+
+
+    }
 
 
 
