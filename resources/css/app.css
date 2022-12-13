@@ -61,3 +61,7 @@ h1{
 .swiper-pagination-bullet-active{
     @apply bg-logo;
 }
+
+iframe{
+    @apply w-full aspect-video;
+}

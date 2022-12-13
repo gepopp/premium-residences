@@ -3,10 +3,13 @@
 namespace App\Models;
 
 
+use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
@@ -168,6 +171,48 @@ class RealEstate extends Model
     {
 
         return $this->hasMany(Feature::class);
+    }
+
+
+
+
+    public function videoData(): Attribute
+    {
+
+        return Attribute::make(
+            get: function ($value) {
+
+                $value = $this->video_url;
+
+                if ($value == null) {
+                    return null;
+                }
+
+                if (Str::contains($value, 'vimeo')) {
+                    $type = 'vimeo';
+                } elseif(Str::contains($value, 'yt') || Str::contains($value, 'you')) {
+                    $type = 'youtube';
+                }else{
+                    $type = 'video';
+                }
+
+                $path = parse_url($value, PHP_URL_PATH);
+                $fragments = explode('/', $path);
+
+                if($type == 'vimeo'){
+                    $data = Http::get('https://vimeo.com/api/oembed.json?url=' . $value . '&width=1472&height=828');
+                    $data = $data->collect()->toArray();
+                }
+
+                return [
+                    'type' => $type,
+                    'id'   => array_pop($fragments),
+                    'url'  => $value,
+                    'data' => $data ?? []
+                ];
+            }
+        );
+
     }
 
 
