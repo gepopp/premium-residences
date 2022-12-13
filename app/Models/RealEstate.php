@@ -196,8 +196,16 @@ class RealEstate extends Model
                     $type = 'video';
                 }
 
-                $path = parse_url($value, PHP_URL_PATH);
-                $fragments = explode('/', $path);
+                $components = parse_url($value);
+                parse_str($components['query'], $params);
+
+                if( array_key_exists('v', $params)){
+                    $id = $params['v'];
+                }else{
+                    $path = parse_url($value, PHP_URL_PATH);
+                    $fragments = explode('/', $path);
+                    $id = array_pop($fragments);
+                }
 
                 if($type == 'vimeo'){
                     $data = Http::get('https://vimeo.com/api/oembed.json?url=' . $value . '&width=1472&height=828');
@@ -206,7 +214,7 @@ class RealEstate extends Model
 
                 return [
                     'type' => $type,
-                    'id'   => array_pop($fragments),
+                    'id'   => $id,
                     'url'  => $value,
                     'data' => $data ?? []
                 ];
