@@ -149,10 +149,10 @@ class RealEstate extends Model
 
 
 
-    public function geotag()
+    public function address()
     {
 
-        return $this->morphOne(GeoTag::class, 'geotagable');
+        return $this->morphOne(Address::class, 'addressable');
     }
 
 
@@ -197,7 +197,11 @@ class RealEstate extends Model
                 }
 
                 $components = parse_url($value);
-                parse_str($components['query'], $params);
+                $params = [];
+
+                if(array_key_exists('query', $components)){
+                    parse_str($components['query'], $params);
+                }
 
                 if( array_key_exists('v', $params)){
                     $id = $params['v'];

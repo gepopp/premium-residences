@@ -79,6 +79,7 @@ class Company extends Resource {
             Country::make('Land', 'country')->required(),
             Text::make( 'Email' )->required()->rules( [ 'email', 'required' ] ),
             Text::make( 'Telefonnummer', 'phone' )->required()->rules( [ 'string', 'required', 'max:50' ] ),
+            MorphOne::make('Adresse', 'address', 'App\Nova\Address')->required(),
         ];
     }
 

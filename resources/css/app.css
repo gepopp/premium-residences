@@ -12,6 +12,11 @@
     background: rgb(134,147,171);
     background: linear-gradient(135deg, rgba(134,147,171,1) 0%, rgba(8,39,77,1) 18%, rgba(8,39,77,1) 74%, rgba(134,147,171,1) 100%);
 }
+.bg-custom-gradient-gray{
+    background: rgb(134,147,171);
+    background: linear-gradient(135deg, rgba(134,147,171,1) 0%, rgba(8,39,77,1) 4%, rgba(134,147,171,1) 12%, rgba(134,147,171,1) 100%);
+}
+
 .bg-custom-gradient-90 {
     background: rgb(134,147,171);
     background: linear-gradient(135deg, rgba(134,147,171,.90) 0%, rgba(8,39,77,.90) 18%, rgba(8,39,77,.90) 74%, rgba(134,147,171,.90) 100%);

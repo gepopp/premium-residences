@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "repositories": [
         {
@@ -13,6 +16,7 @@
     "require": {
         "php": "^8.0.2",
         "akaunting/laravel-language": "^1.0",
+        "brandonjbegle/nova4-google-autocomplete-field": "^0.2.2",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel-lang/attributes": "^2.0",

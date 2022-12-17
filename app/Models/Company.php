@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 
-class Company extends Model {
 
+class Company extends Model
+{
 
 
 
@@ -17,15 +19,25 @@ class Company extends Model {
 
 
 
+
     protected $guarded = [];
 
 
 
 
+    public function logo()
+    {
 
-    public function logo() {
+        return $this->morphOne(Image::class, 'imageable')->where('imageable_field', 'logo')->latestOfMany();
+    }
 
-        return $this->morphOne( Image::class, 'imageable' )->where('imageable_field', 'logo')->latestOfMany();
+
+
+
+    public function address()
+    {
+
+        return $this->morphOne(Address::class, 'addressable');
     }
 
 }

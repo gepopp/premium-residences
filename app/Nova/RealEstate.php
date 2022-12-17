@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Support\Facades\Storage;
@@ -124,14 +125,16 @@ class RealEstate extends Resource
             BelongsTo::make('Gebiet', 'area', 'App\Nova\RealEstateArea')
                      ->required(),
 
+            MorphOne::make('Adresse', 'address', 'App\Nova\Address')
+                    ->required(),
+
             MorphMany::make('Bilder', 'images', 'App\Nova\Image'),
 
             MorphMany::make('Texte', 'texts', 'App\Nova\InlineTextBlock'),
 
             HasMany::make('Ausstattungsmerkmale', 'features', 'App\Nova\Feature'),
 
-            //
-            //
+
             //            BelongsToMany::make( 'Kontaktpersonen', 'contactpersons', 'App\Nova\User' )
             //                         ->nullable(),
             //
