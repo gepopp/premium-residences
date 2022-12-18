@@ -11,28 +11,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 
-class Feature extends Model
+class RealEstateMetaData extends Model
 {
     use HasFactory;
     use HasTranslations;
 
-
-
-
-    public $translatable = [ 'feature' ];
-
-
+    public $translatable = ['text'];
 
 
     protected $guarded = [];
-
 
 
     protected static function booted()
     {
 
         static::addGlobalScope('order', function (Builder $query){
-           $query->orderBy('order', 'DESC');
+            $query->orderBy('order');
         });
 
 
@@ -41,9 +35,7 @@ class Feature extends Model
 
 
 
-    public function realestate()
-    {
-
-        return $this->belongsTo(RealEstate::class, 'real_estate_id');
+    public function real_estate(){
+        return $this->belongsTo(RealEstate::class);
     }
 }

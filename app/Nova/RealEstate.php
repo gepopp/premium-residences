@@ -134,6 +134,8 @@ class RealEstate extends Resource
 
             HasMany::make('Ausstattungsmerkmale', 'features', 'App\Nova\Feature'),
 
+            HasMany::make('Metas', 'metas', 'App\Nova\RealEstateMetaData'),
+
 
             //            BelongsToMany::make( 'Kontaktpersonen', 'contactpersons', 'App\Nova\User' )
             //                         ->nullable(),

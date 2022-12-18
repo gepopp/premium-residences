@@ -176,6 +176,15 @@ class RealEstate extends Model
 
 
 
+    public function metas()
+    {
+
+        return $this->hasMany(RealEstateMetaData::class);
+    }
+
+
+
+
     public function videoData(): Attribute
     {
 
@@ -190,28 +199,28 @@ class RealEstate extends Model
 
                 if (Str::contains($value, 'vimeo')) {
                     $type = 'vimeo';
-                } elseif(Str::contains($value, 'yt') || Str::contains($value, 'you')) {
+                } elseif (Str::contains($value, 'yt') || Str::contains($value, 'you')) {
                     $type = 'youtube';
-                }else{
+                } else {
                     $type = 'video';
                 }
 
                 $components = parse_url($value);
                 $params = [];
 
-                if(array_key_exists('query', $components)){
+                if (array_key_exists('query', $components)) {
                     parse_str($components['query'], $params);
                 }
 
-                if( array_key_exists('v', $params)){
+                if (array_key_exists('v', $params)) {
                     $id = $params['v'];
-                }else{
+                } else {
                     $path = parse_url($value, PHP_URL_PATH);
                     $fragments = explode('/', $path);
                     $id = array_pop($fragments);
                 }
 
-                if($type == 'vimeo'){
+                if ($type == 'vimeo') {
                     $data = Http::get('https://vimeo.com/api/oembed.json?url=' . $value . '&width=1472&height=828');
                     $data = $data->collect()->toArray();
                 }
@@ -220,7 +229,7 @@ class RealEstate extends Model
                     'type' => $type,
                     'id'   => $id,
                     'url'  => $value,
-                    'data' => $data ?? []
+                    'data' => $data ?? [],
                 ];
             }
         );

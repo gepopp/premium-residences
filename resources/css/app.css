@@ -70,3 +70,12 @@ h1{
 iframe{
     @apply w-full aspect-video;
 }
+
+.metabox:nth-child(odd){
+    @apply bg-darkblue;
+}
+
+.metabox:nth-child(even){
+    background: rgb(134,147,171);
+    background: linear-gradient(135deg, rgba(134,147,171,1) 0%, rgba(8,39,77,1) 18%, rgba(8,39,77,1) 74%, rgba(134,147,171,1) 100%);
+}

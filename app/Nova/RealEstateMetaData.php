@@ -14,8 +14,10 @@ use Outl1ne\NovaInlineTextField\InlineText;
 
 
 
-class Feature extends Resource
+class RealEstateMetaData extends Resource
 {
+
+
 
     const DEFAULT_INDEX_ORDER = 'order';
 
@@ -25,9 +27,9 @@ class Feature extends Resource
     /**
      * The model the resource corresponds to.
      *
-     * @var string
+     * @var class-string<\App\Models\RealEstateMetaData>
      */
-    public static $model = \App\Models\Feature::class;
+    public static $model = \App\Models\RealEstateMetaData::class;
 
 
 
@@ -37,7 +39,7 @@ class Feature extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'text';
 
 
 
@@ -48,7 +50,7 @@ class Feature extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'text',
     ];
 
 
@@ -65,19 +67,30 @@ class Feature extends Resource
 
         return [
 
-            InlineText::make('Reihung', 'order')->rules([ 'required', 'numeric' ]),
+            BelongsTo::make('Immobilie', 'real_estate', 'App\Nova\RealEstate')
+                     ->searchable()
+                     ->required(),
 
-            Number::make('Reihung', 'order')->default(function ($request) {
 
-                $highest = \App\Models\RealEstateMetaData::orderBy('order', 'DESC')->where('real_estate_id', $request->viaResourceId)->first();
-                $order = $highest->order ?? 0;
+            InlineText::make('Reihung', 'order')
+                      ->default(function ($request) {
 
-                return $order + 100;
-            })->required()->hideFromIndex(),
-            BelongsTo::make('Immobilie', 'realestate', 'App\Nova\RealEstate'),
+                          $highest = \App\Models\RealEstateMetaData::orderBy('order', 'DESC')->where('real_estate_id', $request->viaResourceId)->first();
+                          $order = $highest->order ?? 0;
+
+                          return $order + 100;
+                      })
+                      ->required()
+                      ->rules([ 'integer', 'numeric', 'required', 'min:1' ]),
+
+
+            Number::make('Zahl', 'number')
+                  ->rules([ 'nullable', 'numeric', 'integer', 'min:1', 'max:999' ])
+                  ->nullable(),
 
             Translatable::make([
-                Text::make('Merkmal', 'feature')
+                Text::make('Text')
+                    ->rules([ 'string', 'required', 'min:5', 'max:45' ])
                     ->required(),
             ]),
         ];

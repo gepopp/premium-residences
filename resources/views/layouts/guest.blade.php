@@ -135,7 +135,7 @@
             </a>
         </div>
         <div class="max-w-xl">
-            <p>{!! \Illuminate\Support\Facades\Lang::get('app.footernote') !!}</p>
+            <p>{!! __('app.footernote') !!}</p>
         </div>
     </div>
 

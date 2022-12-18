@@ -40,7 +40,7 @@
     }
 
 }"
-     class="relative aspect-video bg-custom-gradient-gray">
+     class="relative aspect-[4/3] lg:aspect-video bg-custom-gradient-gray">
     <img :src="getUrl" class="w-full h-full object-cover"/>
 
     <div class="absolute top-0 left-0 w-full h-full bg-custom-gradient-75 flex justify-end items-end">
