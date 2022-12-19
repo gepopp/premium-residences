@@ -5,6 +5,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
@@ -124,6 +125,16 @@ class RealEstate extends Resource
 
             BelongsTo::make('Gebiet', 'area', 'App\Nova\RealEstateArea')
                      ->required(),
+
+            Select::make('Objekt Status', 'status')
+                  ->options([
+                      'new' => 'Erstbezug',
+                      'old' => 'Kein Erstebezug',
+                  ])
+                  ->required()
+                  ->default('new')
+                  ->displayUsingLabels(),
+
 
             MorphOne::make('Adresse', 'address', 'App\Nova\Address')
                     ->required(),
