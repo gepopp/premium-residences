@@ -9,6 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -37,6 +38,15 @@ class RealEstate extends Model
 
 
     protected $casts = [ 'meta' => 'array', 'location_meta' => 'array' ];
+
+
+
+    protected static function booted()
+    {
+        static::addGlobalScope('titleimage', function ( Builder $query){
+            $query->whereHas('titleimage');
+        });
+    }
 
 
 
