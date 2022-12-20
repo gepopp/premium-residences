@@ -20,7 +20,7 @@ class Company extends Resource {
 
     public static function label() {
 
-        return 'Unternehmen';
+        return 'Makler';
 
     }
 
