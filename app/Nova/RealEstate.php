@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 use Spatie\NovaTranslatable\Translatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -148,12 +149,9 @@ class RealEstate extends Resource
             HasMany::make('Metas', 'metas', 'App\Nova\RealEstateMetaData'),
 
 
-            //            BelongsToMany::make( 'Kontaktpersonen', 'contactpersons', 'App\Nova\User' )
-            //                         ->nullable(),
-            //
-            //            MorphOne::make( 'Geotag', 'geotag', 'App\Nova\Geotag' )
-            //                    ->required()
-            //                    ->hideFromDetail(),
+            BelongsToMany::make('Kontaktpersonen', 'contactpersons', 'App\Nova\User')
+                         ->nullable(),
+
         ];
     }
 

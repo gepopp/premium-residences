@@ -2,27 +2,30 @@
 
 namespace App\Nova;
 
-use Psy\Util\Str;
-use Laravel\Nova\Fields\ID;
+
 use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Country;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
 
 
-class Company extends Resource {
+class Company extends Resource
+{
 
 
 
-    public static function label() {
+    public static function label()
+    {
 
         return 'Makler';
 
     }
+
+
+
 
     /**
      * The model the resource corresponds to.
@@ -34,14 +37,12 @@ class Company extends Resource {
 
 
 
-
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
-
 
 
 
@@ -58,7 +59,6 @@ class Company extends Resource {
 
 
 
-
     /**
      * Get the fields displayed by the resource.
      *
@@ -66,20 +66,29 @@ class Company extends Resource {
      *
      * @return array
      */
-    public function fields( NovaRequest $request ) {
+    public function fields(NovaRequest $request)
+    {
 
         return [
-            Text::make( 'Name' )->required()->rules( 'string', 'required', 'max:255' ),
+            Text::make('Name')
+                ->required()
+                ->rules('string', 'required', 'max:255'),
             MorphOne::make('Logo', 'logo', 'App\Nova\Image')
                     ->required(),
-            Text::make( 'Email' )->required()->rules( [ 'email', 'required' ] ),
-            Text::make( 'Telefonnummer', 'phone' )->required()->rules( [ 'string', 'required', 'max:50' ] ),
-            URL::make('Website', 'url')->nullable()->rules(['nullable', 'url']),
-
-            MorphOne::make('Adresse', 'address', 'App\Nova\Address')->required(),
+            Text::make('Email')
+                ->required()
+                ->rules([ 'email', 'required' ]),
+            Text::make('Telefonnummer', 'phone')
+                ->required()
+                ->rules([ 'string', 'required', 'max:50' ]),
+            URL::make('Website', 'url')
+               ->nullable()
+               ->rules([ 'nullable', 'url' ]),
+            MorphOne::make('Adresse', 'address', 'App\Nova\Address')
+                    ->required(),
+            HasMany::make('Nutzer', 'users', 'App\Nova\User'),
         ];
     }
-
 
 
 
@@ -91,11 +100,11 @@ class Company extends Resource {
      *
      * @return array
      */
-    public function cards( NovaRequest $request ) {
+    public function cards(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -107,11 +116,11 @@ class Company extends Resource {
      *
      * @return array
      */
-    public function filters( NovaRequest $request ) {
+    public function filters(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -123,11 +132,11 @@ class Company extends Resource {
      *
      * @return array
      */
-    public function lenses( NovaRequest $request ) {
+    public function lenses(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -139,7 +148,8 @@ class Company extends Resource {
      *
      * @return array
      */
-    public function actions( NovaRequest $request ) {
+    public function actions(NovaRequest $request)
+    {
 
         return [];
     }

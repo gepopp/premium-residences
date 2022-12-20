@@ -127,7 +127,7 @@
 <main class="min-h-screen">
     {{ $slot ?? '' }}
 </main>
-<footer class="py-3 flex justify-between items-center text-logo font-bold border-t-2 border-logo">
+<footer class="mt-20 py-3 flex justify-between items-center text-logo font-bold border-t-2 border-logo">
     <div class="flex">
         <div class="pr-5 mr-5 border-r-2 border-logo">
             <a href="{{ route('home') }}">
