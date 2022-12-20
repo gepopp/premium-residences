@@ -70,7 +70,7 @@
     </div>
 
 
-    @forelse( $realestate->contactpersons as $contactperson )
+    @forelse( $realestate->contactpersons ?? [] as $contactperson )
 
         <div class="flex flex-wrap w-full xl:w-1/2">
             <div class="w-full lg:w-1/2 aspect-square bg-white lg:bg-custom-gradient xl:bg-none xl:bg-white relative p-20 flex flex-col justify-center items-center">
