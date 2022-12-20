@@ -122,7 +122,10 @@ class Image extends Resource
                                       ->rules('image', 'max:5000'),
 
             Translatable::make([
-                Text::make('Bildtitel', 'alt')->required()->rules([ 'string', 'required', 'max:250' ]),
+                Text::make('Bildtitel', 'alt')
+                    ->required()
+                    ->rules([ 'string', 'required', 'max:250' ]),
+
                 Textarea::make('Bildbeschreibung', 'description'),
             ]),
         ];
