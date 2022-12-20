@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Psy\Util\Str;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Country;
@@ -68,17 +69,13 @@ class Company extends Resource {
     public function fields( NovaRequest $request ) {
 
         return [
-            ID::make()->sortable(),
+            Text::make( 'Name' )->required()->rules( 'string', 'required', 'max:255' ),
             MorphOne::make('Logo', 'logo', 'App\Nova\Image')
                     ->required(),
-            Text::make( 'Name' )->required()->rules( 'string', 'required', 'max:255' ),
-            Text::make('Adresse', 'address_line_1')->rules(['required', 'string', 'max:250'])->required(),
-            Text::make('Adresszusatz', 'address_line_2')->rules(['nullable', 'string', 'max:250']),
-            Text::make('Postleitzahl', 'zip')->rules(['required', 'string', 'max:250'])->required(),
-            Text::make('Stadt', 'city')->rules(['required', 'string', 'max:250'])->required(),
-            Country::make('Land', 'country')->required(),
             Text::make( 'Email' )->required()->rules( [ 'email', 'required' ] ),
             Text::make( 'Telefonnummer', 'phone' )->required()->rules( [ 'string', 'required', 'max:50' ] ),
+            URL::make('Website', 'url')->nullable()->rules(['nullable', 'url']),
+
             MorphOne::make('Adresse', 'address', 'App\Nova\Address')->required(),
         ];
     }

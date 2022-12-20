@@ -7,5 +7,6 @@
         @include('RealEstate.modules.video')
         @include('RealEstate.modules.location')
         @include('RealEstate.modules.metas')
+        @include('RealEstate.modules.contact')
     </main>
 </x-guest-layout>

@@ -33,7 +33,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::mainMenu(function (Request $request) {
             return [
 
-                MenuItem::externalLink('Startseite', env('APP_URL')),
+                MenuItem::externalLink('Startseite', env('APP_URL'))->openInNewTab(),
 
 
                 MenuSection::make('Immobilien', [

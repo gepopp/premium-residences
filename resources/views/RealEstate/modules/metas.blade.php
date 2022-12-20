@@ -1,6 +1,12 @@
 @if($realestate->metas()->count())
     <div class="bg-white py-20">
-        <div class="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-5 lg:gap-10">
+        <div @class([
+            "grid grid-cols-2 gap-5 lg:gap-10",
+            "lg:grid-cols-3" => $realestate->metas()->count() == 3,
+            "lg:grid-cols-4" => $realestate->metas()->count() == 4,
+            "lg:grid-cols-4 xl:grid-cols-5" => $realestate->metas()->count() == 5,
+            "lg:grid-cols-4 xl:grid-cols-6" => $realestate->metas()->count() >= 6,
+        ])>
             @foreach($realestate->metas as $meta)
                 <div class="metabox aspect-square p-5 relative flex justify-center items-center">
                     <div class="absolute top-0 right-0 m-5">
