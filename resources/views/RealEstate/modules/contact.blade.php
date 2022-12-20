@@ -19,7 +19,7 @@
                 </svg>
             </div>
 
-            <img src="{{ $realestate->company->logo->url }}" srcset="{{ $realestate->company->logo->srcset }}" alt="Logo {{ $realestate->company->name }}">
+            <img src="{{ $realestate->company->logo->url }}" srcset="{{ $realestate->company->logo->srcset->srcset_string }}" alt="Logo {{ $realestate->company->name }}">
         </div>
     @endif
 
