@@ -41,12 +41,6 @@ class RealEstate extends Model
 
 
 
-    protected static function booted()
-    {
-        static::addGlobalScope('titleimage', function ( Builder $query){
-            $query->whereHas('titleimage');
-        });
-    }
 
 
 
