@@ -41,9 +41,9 @@ class RealEstate extends Model
 
 
 
-    public function scopeTitleimage($query)
+    public function scopePopular($query)
     {
-          return  $query->whereHas('titleimage');
+        return $query->whereHas('titleimage');
     }
 
 
