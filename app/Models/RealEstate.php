@@ -41,6 +41,10 @@ class RealEstate extends Model
 
 
 
+    protected function scopeTitleimage($query)
+    {
+            $query->whereHas('titleimage');
+    }
 
 
 
