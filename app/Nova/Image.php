@@ -77,6 +77,7 @@ class Image extends Resource
                 RealEstate::class,
                 Company::class,
                 TextBlock::class,
+                Article::class
             ])->nullable(),
 
 

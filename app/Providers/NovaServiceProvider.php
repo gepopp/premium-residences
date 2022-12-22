@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Nova\User;
 use App\Nova\Image;
 use App\Nova\Company;
+use App\Nova\Article;
+use App\Nova\Category;
 use App\Nova\RealEstate;
 use Illuminate\Http\Request;
 use App\Nova\RealEstateArea;
@@ -43,6 +45,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource( Image::class )
                 ])->icon('home')
                   ->collapsable(),
+
+
+                MenuSection::make('News', [
+                    MenuItem::resource(Article::class ),
+                    MenuItem::resource(Category::class),
+                ])->icon('newspaper')
+                           ->collapsable(),
 
                 MenuSection::make('Nutzer', [
                     MenuItem::resource(User::class),
