@@ -1,6 +1,10 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,27 +16,35 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => 'language'], function () {
+Route::group([ 'middleware' => 'language' ], function () {
 
     Route::get('/', function () {
+
         return view('welcome');
     })->name('home');
-
 
 
     Route::middleware([
         'auth:sanctum',
         config('jetstream.auth_session'),
-        'verified'
+        'verified',
     ])->group(function () {
+
         Route::get('/dashboard', function () {
+
             return view('dashboard');
         })->name('dashboard');
     });
 
 
-    Route::get('immobilien/{realestate}', [\App\Http\Controllers\RealEstateController::class, 'show'])->name('real-estate.show');
-    Route::get('realestate-sliderimages/{realEstate}', [\App\Http\Controllers\RealEstateController::class, 'sliderImages'])->name('realestate-sliderimages');
+    Route::get('register', function () {
+
+        return view('auth.register');
+    })->middleware('guest')->name('register');
+
+
+    Route::get('immobilien/{realestate}', [ \App\Http\Controllers\RealEstateController::class, 'show' ])->name('real-estate.show');
+    Route::get('realestate-sliderimages/{realEstate}', [ \App\Http\Controllers\RealEstateController::class, 'sliderImages' ])->name('realestate-sliderimages');
 
 });
 

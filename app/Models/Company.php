@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
@@ -16,11 +17,17 @@ class Company extends Model
 
 
     use HasFactory;
+    use Notifiable;
 
 
 
 
     protected $guarded = [];
+
+
+
+
+    protected $casts = [ 'email_verified_at' => 'datetime' ];
 
 
 

@@ -2,30 +2,34 @@
 
 namespace App\Nova;
 
+
+use Carbon\Carbon;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Illuminate\Validation\Rules;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\MorphOne;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
 
-class User extends Resource {
+
+class User extends Resource
+{
 
 
 
 
-
-    public static function label() {
+    public static function label()
+    {
 
         return 'Nuzter';
 
     }
-
 
 
 
@@ -40,14 +44,12 @@ class User extends Resource {
 
 
 
-
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'name';
-
 
 
 
@@ -66,7 +68,6 @@ class User extends Resource {
 
 
 
-
     /**
      * Get the fields displayed by the resource.
      *
@@ -74,53 +75,59 @@ class User extends Resource {
      *
      * @return array
      */
-    public function fields( NovaRequest $request ) {
+    public function fields(NovaRequest $request)
+    {
+
+        Carbon::setlocale(config('UTC'));
 
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth( 50 ),
+            Gravatar::make()->maxWidth(50),
 
-            MorphOne::make( 'Kontaktphoto', 'contactphoto', 'App\Nova\Image' )
+            MorphOne::make('Kontaktphoto', 'contactphoto', 'App\Nova\Image')
                     ->required()
                     ->hideFromIndex()
                     ->hideFromDetail(),
 
-            Text::make( 'Anrede', 'salutation' )
-                ->rules( 'required', 'max:255' ),
+            Text::make('Anrede', 'salutation')
+                ->rules('required', 'max:255'),
 
-            Text::make( 'Titel', 'academic_degree' )
-                ->rules( 'nullable', 'max:255' ),
+            Text::make('Titel', 'academic_degree')
+                ->rules('nullable', 'max:255'),
 
-            Text::make( 'Name' )
+            Text::make('Name')
                 ->sortable()
-                ->rules( 'required', 'max:255' ),
+                ->rules('required', 'max:255'),
 
-            Text::make( 'Email' )
+            Text::make('Email')
                 ->sortable()
-                ->rules( 'required', 'email', 'max:254' )
-                ->creationRules( 'unique:users,email' )
-                ->updateRules( 'unique:users,email,{{resourceId}}' ),
+                ->rules('required', 'email', 'max:254')
+                ->creationRules('unique:users,email')
+                ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Text::make( 'Telefonnummer', 'phone' )
-                ->rules( 'required', 'max:255' ),
 
-            Password::make( 'Password' )
+            DateTime::make('Verified At', 'email_verified_at')
+                    ->default(now()),
+
+            Text::make('Telefonnummer', 'phone')
+                ->rules('required', 'max:255'),
+
+            Password::make('Password')
                     ->onlyOnForms()
-                    ->creationRules( 'required', Rules\Password::defaults() )
-                    ->updateRules( 'nullable', Rules\Password::defaults() ),
+                    ->creationRules('required', Rules\Password::defaults())
+                    ->updateRules('nullable', Rules\Password::defaults()),
 
 
-            BelongsTo::make( 'Untenrehmen', 'company', 'App\Nova\Company' )
+            BelongsTo::make('Untenrehmen', 'company', 'App\Nova\Company')
                      ->nullable()
                      ->searchable(),
 
 
-            BelongsToMany::make( 'Immobilien', 'realestate', 'App\Nova\RealEstate' )
+            BelongsToMany::make('Immobilien', 'realestate', 'App\Nova\RealEstate')
                          ->nullable(),
         ];
     }
-
 
 
 
@@ -132,11 +139,11 @@ class User extends Resource {
      *
      * @return array
      */
-    public function cards( NovaRequest $request ) {
+    public function cards(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -148,11 +155,11 @@ class User extends Resource {
      *
      * @return array
      */
-    public function filters( NovaRequest $request ) {
+    public function filters(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -164,11 +171,11 @@ class User extends Resource {
      *
      * @return array
      */
-    public function lenses( NovaRequest $request ) {
+    public function lenses(NovaRequest $request)
+    {
 
         return [];
     }
-
 
 
 
@@ -180,7 +187,8 @@ class User extends Resource {
      *
      * @return array
      */
-    public function actions( NovaRequest $request ) {
+    public function actions(NovaRequest $request)
+    {
 
         return [];
     }

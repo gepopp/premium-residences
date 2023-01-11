@@ -15,7 +15,7 @@
     </script>
 
 </head>
-<body class="antialiased container">
+<body class="antialiased container min-h-screen flex flex-col">
 <div x-data="{ imgModal : false, imgModalSrc : '', imgModalDesc : '', open(event){ this.imgModal = true; this.imgModalSrc = event.detail.imgModalSrc; this.imgModalDesc = event.detail.imgModalDesc; } }">
     <div @img-modal.window="open" x-show="imgModal">
         <div x-transition:enter="transition ease-out duration-300"
@@ -124,10 +124,10 @@
         </div>
     </div>
 </header>
-<main class="min-h-screen">
+<main>
     {{ $slot ?? '' }}
 </main>
-<footer class="mt-20 py-3 flex justify-between items-center text-logo font-bold border-t-2 border-logo">
+<footer class="mt-auto py-3 flex justify-between items-center text-logo font-bold border-t-2 border-logo">
     <div class="flex">
         <div class="pr-5 mr-5 border-r-2 border-logo">
             <a href="{{ route('home') }}">

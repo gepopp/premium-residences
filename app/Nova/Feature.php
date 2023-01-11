@@ -65,7 +65,7 @@ class Feature extends Resource
 
         return [
 
-            InlineText::make('Reihung', 'order')->rules([ 'required', 'numeric' ]),
+            InlineText::make('Reihung', 'order')->rules([ 'required', 'numeric' ])->onlyOnIndex(),
 
             Number::make('Reihung', 'order')->default(function ($request) {
 

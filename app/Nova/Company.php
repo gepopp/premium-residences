@@ -3,10 +3,13 @@
 namespace App\Nova;
 
 
+use Carbon\Carbon;
 use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Email;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MorphOne;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 
@@ -69,15 +72,24 @@ class Company extends Resource
     public function fields(NovaRequest $request)
     {
 
+        Carbon::setlocale(config('UTC'));
+
+
         return [
             Text::make('Name')
                 ->required()
                 ->rules('string', 'required', 'max:255'),
             MorphOne::make('Logo', 'logo', 'App\Nova\Image')
                     ->required(),
-            Text::make('Email')
-                ->required()
-                ->rules([ 'email', 'required' ]),
+            Email::make('Email')
+                 ->required()
+                 ->rules([ 'email', 'required' ]),
+            DateTime::make('E-Mail-Adresse bestätigt', 'email_verified_at')
+                    ->default(now())
+                    ->required()
+                    ->rules('required')
+                    ->hideFromIndex()
+                    ->hideFromDetail(),
             Text::make('Telefonnummer', 'phone')
                 ->required()
                 ->rules([ 'string', 'required', 'max:50' ]),
